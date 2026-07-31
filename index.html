@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garima Jain | AI Content Creator & Visual Storyteller</title>
+    <meta name="description" content="Beyond the Prompt. Turning imagination into visual stories. Portfolio of Garima Jain, AI Content Creator & Visual Storyteller based in Delhi.">
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 01. GLOBAL VARIABLES & RESET --- */
+        :root {
+            --violet: #6D28D9;
+            --magenta: #E11D8A;
+            --sand: #F2E6D8;
+            --graphite: #0a0a0a; /* Deepest black for last section */
+            --pearl: #FCFCFA;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html{scroll-behavior:smooth;}
+
+        body, html {
+            width: 100%;
+            font-family: var(--font-main);
+            background-color: var(--sand);
+            color: #232323;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: auto;
+            transition: background-color 1s ease, color 1s ease;
+        }
+
+        body.dark-mode {
+            background-color: var(--graphite);
+            color: var(--pearl);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- 02. BACKGROUND IMAGE & WEBGL --- */
+        #bg-image {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            /* Exactly matching your downloaded file name */
+            background: url("assets/bg-image.jpg") no-repeat center center;
+            background-size: cover;
+            z-index:0;
+            pointer-events: none; /* Ensures it doesn't block clicks */
+            transition: opacity 0.8s ease;
+        }
+        
+        #webgl-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* FIXED: Sits above the background image */
+            pointer-events: none; 
+            transition: opacity 0.8s ease;
+        }
+
+        
+#hero-video{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:1;
+pointer-events:none;
+transition:opacity .6s ease;
+background:#000;
+}
+
+
+        /* --- 03. TYPOGRAPHY & ACCENTS --- */
+        .accent-gradient {
+            background: linear-gradient(90deg, var(--violet), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .accent-violet { color: var(--violet); }
+        .accent-magenta { color: var(--magenta); }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        main {
+            position: relative;
+            z-index: 3; /* FIXED: Sits on top of both backgrounds so text is visible */
+        }
+
+        section {
+            position: relative;
+            width: 100vw;
+            padding: 0 5vw;
+        }
+
+        /* --- CHAPTER 01: BEYOND THE PROMPT --- */
+        #chapter-1 {
+            height: 100vh;
+            height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; 
+            text-align: left;       
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 9rem);
+            text-transform: uppercase;
+            color: #1A1A24;
+            line-height: 1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            font-weight: 400; 
+            margin-top: 1rem;
+            color: #1A1A24;
+        }
+
+        /* --- CHAPTER 02: IDEAS IN MOTION --- */
+        #chapter-2 {
+            min-height: 100vh;
+            min-height: 100svh;
+            padding-top: 15vh;
+            padding-bottom: 15vh;
+        }
+
+        .section-header {
+            font-size: clamp(3rem, 5vw, 5rem);
+            margin-bottom: 2rem;
+            color: #232323;
+        }
+
+        /* 3D Tabs */
+        .tabs-container {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: var(--font-main);
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            font-weight: 700;
+            color: #A0A0A0;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 15px;
+            transition: color 0.4s ease;
+        }
+
+        .tab-btn:hover {
+            color: #555;
+        }
+
+        .tab-btn.active {
+            color: #232323;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--violet), var(--magenta));
+            transition: width 0.4s ease;
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .projects-grid.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-card {
+            background: #FDFDFD;
+            border-radius: 4px;
+            padding: 2.5rem 2rem;
+            height: 220px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            text-decoration: none;
+            color: #1A1A24;
+            font-weight: 800;
+            font-size: 1.15rem;
+            line-height: 1.3;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(225, 29, 138, 0.12);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--violet), var(--magenta));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        /* ABOUT ME SECTION */
+        .about-section {
+            margin-top: 20vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5vw;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h2 { 
+            font-size: clamp(3.5rem, 6vw, 5rem); 
+            margin-bottom: 1rem; 
+            letter-spacing: -0.03em;
+        }
+        
+        .about-text h3 { 
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem); 
+            font-weight: 600; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .about-text p { 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+            max-width: 500px; 
+            opacity: 0.8; 
+        }
+
+        .about-portrait-container {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: flex-end; 
+            perspective: 1000px;
+        }
+
+        .about-portrait {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 3 / 4;
+            display:block;
+            background: #e2dfda;
+            border-radius: 4px;
+            object-fit: cover;
+            box-shadow: -15px 20px 50px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+        }
+        
+        .about-portrait-container:hover .about-portrait {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.02);
+            box-shadow: -25px 30px 60px rgba(225, 29, 138, 0.15);
+        }
+
+        /* --- CHAPTER 03: PROCESS & CONTACT --- */
+        #chapter-3 {
+            min-height: 100vh;
+            min-height: 100svh;
+            padding-top: 15vh;
+            padding-bottom: 5vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode .section-header {
+            color: var(--pearl);
+        }
+
+        /* Timeline */
+        .timeline-container {
+            margin: 5rem 0;
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-track {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .timeline-progress {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--violet), var(--magenta));
+            box-shadow: 0 0 10px var(--magenta);
+        }
+
+        .timeline-stages {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-stage {
+            width: 18%;
+            text-align: left;
+        }
+
+        .stage-dot {
+            width: 32px;
+            height: 32px;
+            background: #111;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stage-dot::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .timeline-stage.active .stage-dot {
+            background: var(--magenta);
+            border-color: var(--magenta);
+            box-shadow: 0 0 15px rgba(225, 29, 138, 0.6);
+            transform: scale(1.1);
+        }
+
+        .timeline-stage.active .stage-dot::after {
+            opacity: 1;
+        }
+
+        .stage-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .stage-desc { font-size: 0.85rem; opacity: 0.6; line-height: 1.4; }
+
+        /* What I Create */
+        .what-i-create {
+            margin-top: 6rem;
+            margin-bottom: 8rem;
+        }
+
+        .creation-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .creation-list li {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .creation-list li:hover {
+            color: var(--pearl);
+            -webkit-text-stroke: 0px;
+            text-shadow: 0 0 20px rgba(225, 29, 138, 0.4);
+            transform: skewX(-3deg);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .contact-section h2 {
+            font-size: clamp(3rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+            color: var(--pearl);
+        }
+
+        .contact-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            background: linear-gradient(90deg, var(--magenta), var(--violet));
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 15px 35px;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(225, 29, 138, 0.3);
+            text-transform: uppercase;
+        }
+
+        .contact-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(225, 29, 138, 0.5);
+        }
+
+        /* WhatsApp SVG Icon */
+        .contact-cta svg {
+            width: 24px;
+            height: 24px;
+            margin-left: 12px;
+            fill: currentColor;
+        }
+
+        /* Contact Pills */
+        .contact-pills {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .pill {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--pearl);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pill:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--magenta);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            opacity: 0.5;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* --- 05. RESPONSIVE DESIGN (MOBILE) --- */
+        @media (max-width: 768px) {
+            #chapter-1 {
+                align-items: center;
+                text-align: center;
+            }
+            .about-section {
+                flex-direction: column-reverse; 
+                text-align: center;
+            }
+            .about-text p {
+                margin: 0 auto;
+            }
+            .about-portrait-container {
+                justify-content: center;
+            }
+            .timeline-stages {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .timeline-stage {
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .timeline-track, .timeline-progress {
+                width: 2px;
+                height: 100%;
+                left: 15px;
+                top: 0;
+            }
+            .stage-dot { margin-bottom: 0; flex-shrink: 0; }
+            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .project-card {
+                height: auto;
+                min-height: 90px;
+                padding: 1.4rem 1.5rem;
+                font-size: 1rem;
+            }
+            .tabs-container { gap: 1.25rem; }
+            .tab-btn { font-size: 1rem; padding-bottom: 10px; }
+            section { padding: 0 6vw; }
+            .contact-pills { flex-direction: column; align-items: center; gap: 1rem; }
+            footer { flex-direction: column; text-align: center; gap: 0.75rem; }
+            footer div[style*="text-align: right"] { text-align: center !important; }
+        }
+
+        /* Extra tightening for small phones */
+        @media (max-width: 420px) {
+            .project-card {
+                min-height: 80px;
+                padding: 1.1rem 1.2rem;
+                font-size: 0.95rem;
+            }
+            .section-header { margin-bottom: 1.25rem; }
+            .about-portrait { max-width: 280px; }
+        }
+    
+.footer-link{cursor:pointer;transition:.3s;}
+.footer-link:hover{color:var(--magenta);}
+html{scroll-behavior:smooth;}
+</style>
+</head>
+<body>
+
+    <!-- Hero Video -->
+    <video id="hero-video" autoplay muted playsinline webkit-playsinline="true" preload="auto" poster="assets/bg-image.jpg">
+      <source src="assets/hero-video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Static Background Image -->
+    <div id="bg-image"></div>
+
+    <!-- 3D Environment Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Main Content -->
+    <main id="app">
+        
+        <!-- CHAPTER 01: BEYOND THE PROMPT -->
+        <section id="chapter-1">
+            <h1 class="hero-title reveal-mask">
+                BEYOND<br>THE <span class="accent-gradient">PROMPT.</span>
+            </h1>
+            <h2 class="hero-subtitle reveal-mask">
+                Turning <span class="accent-violet">imagination</span> into <span class="accent-magenta">visual stories.</span>
+            </h2>
+        </section>
+
+        <!-- CHAPTER 02: IDEAS IN MOTION + ABOUT ME -->
+        <section id="chapter-2">
+            <h2 class="section-header">Ideas in <span class="accent-magenta">Motion</span></h2>
+            
+            <div class="tabs-container">
+                <button class="tab-btn active" data-target="ai-videos">AI Videos</button>
+                <button class="tab-btn" data-target="commercial-ads">Commercial Ads</button>
+                <button class="tab-btn" data-target="social-media">Social Media Content</button>
+            </div>
+
+            <!-- Dynamic Project Containers -->
+            <div id="ai-videos" class="projects-grid active"></div>
+            <div id="commercial-ads" class="projects-grid"></div>
+            <div id="social-media" class="projects-grid"></div>
+
+            <!-- About Me -->
+            <div class="about-section">
+                <div class="about-text">
+                    <h2>Hey, I'm Garima.</h2>
+                    <h3>Let's turn ideas into things that you can see.</h3>
+                    <p>An enthusiastic AI content creator and visual storyteller based in Delhi, my work sits at the intersection of storytelling, design, technology and curiosity.</p>
+                </div>
+                <div class="about-portrait-container">
+                    <img src="assets/about-portrait.jpg" alt="Garima Jain Portrait" class="about-portrait" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 03: PROCESS, WHAT I CREATE, CONTACT -->
+        <section id="chapter-3">
+            
+            <div class="process-section">
+                <h2 class="section-header">From thought → <span class="accent-magenta">frame.</span></h2>
+                
+                <div class="timeline-container">
+                    <div class="timeline-track"></div>
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                    
+                    <div class="timeline-stages">
+                        <div class="timeline-stage process-step">
+                            <div class="stage-dot"></div>
+                            <h4 class="stage-title">THINK</h4>
+                            <p class="stage-desc">Find the idea. Concept, research, references and story.</p>
+                        </div>
+                        <div class="timeline-stage process-step">
+                            <div class="stage-dot"></div>
+                            <h4 class="stage-title">IMAGINE</h4>
+                            <p class="stage-desc">Build the visual world. Moodboards, visual language and art direction.</p>
+                        </div>
+                        <div class="timeline-stage process-step">
+                            <div class="stage-dot"></div>
+                            <h4 class="stage-title">CREATE</h4>
+                            <p class="stage-desc">Make it real. AI generation, video generation, editing and compositing.</p>
+                        </div>
+                        <div class="timeline-stage process-step">
+                            <div class="stage-dot"></div>
+                            <h4 class="stage-title">REFINE</h4>
+                            <p class="stage-desc">Make it feel right. Iteration, pacing, colour, sound and detail.</p>
+                        </div>
+                        <div class="timeline-stage process-step">
+                            <div class="stage-dot"></div>
+                            <h4 class="stage-title">DELIVER</h4>
+                            <p class="stage-desc">Turn imagination into impact. Final campaign or film.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="what-i-create">
+                <h2 class="stage-title" style="font-size: 1.5rem; margin-bottom: -1rem;">What I Create</h2>
+                <ul class="creation-list">
+                    <li>AI VIDEOS</li>
+                    <li>SOCIAL CONTENT</li>
+                    <li>EDUCATIONAL CONTENT</li>
+                    <li>AI IMAGES</li>
+                    <li>STORYTELLING</li>
+                </ul>
+            </div>
+
+            <div class="contact-section">
+                <h2>HAVE AN IDEA?</h2>
+                <h2 style="color: var(--magenta);">LET'S MAKE IT VISIBLE.</h2>
+                <p style="font-size: 1rem; opacity: 0.7; margin-top: 1rem; max-width: 500px; margin-inline: auto;">
+                    For campaigns, content, visual storytelling, educational projects and creative collaborations.
+                </p>
+                
+                <!-- WhatsApp CTA -->
+                <a href="https://wa.me/917793074996?text=Hi%20Garima,%20I%20have%20an%20idea%20I'd%20like%20to%20discuss!" target="_blank" class="contact-cta">
+                    START A CONVERSATION
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                </a>
+
+                <!-- Separate Pill Navigation -->
+                <div class="contact-pills">
+                    <a href="mailto:jaingarima390@gmail.com" class="pill">GMAIL</a>
+                    <a href="https://x.com/garimaj390?s=11" target="_blank" class="pill">X (TWITTER)</a>
+                    <a href="https://wa.me/917793074996" target="_blank" class="pill">WHATSAPP</a>
+                </div>
+
+                <footer>
+                    <div>GARIMA JAIN <br> AI CONTENT CREATOR · VISUAL STORYTELLER</div>
+                    <div>Navigation: <a href="javascript:void(0)" onclick="scrollToSection('work')" class="footer-link">WORK</a> | <a href="javascript:void(0)" onclick="scrollToSection('about')" class="footer-link">ABOUT</a> | <a href="javascript:void(0)" onclick="scrollToSection('process')" class="footer-link">PROCESS</a> | <a href="javascript:void(0)" onclick="scrollToSection('contact')" class="footer-link">CONTACT</a></div>
+                    <div style="text-align: right;">© 2026 Garima Jain <br> Made with curiosity + AI.</div>
+                </footer>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =================================================================================== -->
+    <!-- EXTERNAL LIBRARIES -->
+    <!-- =================================================================================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- =================================================================================== -->
+    <!-- CONTENT CONFIGURATION & APPLICATION LOGIC -->
+    <!-- =================================================================================== -->
+    <script>
+        // --- CONTENT ARRAYS ---
+        const aiVideoProjects = [
+            { title: "Mystery of Mount Kailash", youtubeUrl: "https://youtu.be/XD6bE3UrEwU?si=yqSwM6lDaCukFLJ5" },
+            { title: "Avocado Toast in Breakfast", youtubeUrl: "https://youtube.com/shorts/Rkhk_m_J76o?si=UgdI82SEZAKo1heq" },
+            { title: "Hare and Tortoise Race Reimagined", youtubeUrl: "https://youtube.com/shorts/pGztsD0Nq5g?si=rANctFx4zunhtJ6c" },
+            { title: "A Day with Coffee", youtubeUrl: "https://youtu.be/k5i9ARHpxHc?si=zxopIHE1WTHee7ni" },
+            { title: "Tour to our Solar System", youtubeUrl: "https://youtube.com/shorts/i7jBe_K3Rk4?si=Zy7sewUbSHdcQ23U" }
+        ];
+
+        const commercialAds = [
+            { title: "Ferrero Rocher", youtubeUrl: "https://www.youtube.com/shorts/9WAIROzb4D0" },
+            { title: "Raw Pressery", youtubeUrl: "https://youtube.com/shorts/cAIuYtaOkbI?si=IxhkDrdjVQJeiCnL" },
+            { title: "Creamy Story Kulfis", youtubeUrl: "https://youtube.com/shorts/qmD8DV6gyoE?si=TMcK1qZ1XYGmxm6K" }
+        ];
+
+        const socialMediaContent = [
+            { title: "Sports in 90s", youtubeUrl: "https://x.com/GarimaJ390/status/2075105416078659694?s=48" },
+            { title: "CSEWhy Carousel 01", youtubeUrl: "https://www.instagram.com/p/DbVjT0ZD0oG/?igsh=OWE3OXc5dDg2dDF4" },
+            { title: "CSEWhy Carousel 02", youtubeUrl: "https://www.instagram.com/p/DbISTjLjxIr/?img_index=4&igsh=ZXR6M2w5djRuYXZl" },
+            { title: "CSEWhy Carousel 03", youtubeUrl: "https://www.instagram.com/p/DbAWcltj4eP/?igsh=MXFrcjNsa3R5cjBmcg%3D%3D" }
+        ];
+
+        // Render Text-Based Project Cards
+        function renderProjects(projectsArray, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = projectsArray.map(proj => `
+                <a href="${proj.youtubeUrl}" target="_blank" class="project-card">
+                    ${proj.title}
+                </a>
+            `).join('');
+        }
+
+        renderProjects(aiVideoProjects, 'ai-videos');
+        renderProjects(commercialAds, 'commercial-ads');
+        renderProjects(socialMediaContent, 'social-media');
+
+        // Tabs Logic
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const projectGrids = document.querySelectorAll('.projects-grid');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                projectGrids.forEach(g => g.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(btn.getAttribute('data-target')).classList.add('active');
+            });
+        });
+
+        // --- THREE.JS IMMERSIVE ENVIRONMENT ---
+        const canvas = document.getElementById('webgl-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 30;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Particles setup (fewer particles on mobile/low-power devices so the WebGL layer
+        // doesn't starve the hero video of CPU/GPU and cause stutter on phones)
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const particleCount = isMobile ? 45 : 150;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleVelocities = [];
+
+        for(let i = 0; i < particleCount; i++) {
+            particlePositions[i*3] = (Math.random() - 0.5) * 100;
+            particlePositions[i*3+1] = (Math.random() - 0.5) * 100;
+            particlePositions[i*3+2] = (Math.random() - 0.5) * 50 - 10;
+            particleVelocities.push({
+                x: (Math.random() - 0.5) * 0.01,
+                y: (Math.random() - 0.5) * 0.01,
+                z: (Math.random() - 0.5) * 0.01
+            });
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0xE11D8A, // Magenta dots
+            size: 0.25,
+            transparent: true,
+            opacity: 0.5
+        });
+        
+        const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particleSystem);
+
+        const lineMaterial = new THREE.LineBasicMaterial({
+            color: 0x6D28D9, 
+            transparent: true,
+            opacity: 0.1
+        });
+        
+        let lineGeometry = new THREE.BufferGeometry();
+        let linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+        scene.add(linesMesh);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const positions = particleSystem.geometry.attributes.position.array;
+            const linePositions = [];
+            const connectDistance = 12;
+
+            for(let i = 0; i < particleCount; i++) {
+                positions[i*3] += particleVelocities[i].x;
+                positions[i*3+1] += particleVelocities[i].y;
+                positions[i*3+2] += particleVelocities[i].z;
+
+                if(positions[i*3] > 50) positions[i*3] = -50;
+                if(positions[i*3] < -50) positions[i*3] = 50;
+                if(positions[i*3+1] > 50) positions[i*3+1] = -50;
+                if(positions[i*3+1] < -50) positions[i*3+1] = 50;
+
+                for(let j = i + 1; j < particleCount; j++) {
+                    const dx = positions[i*3] - positions[j*3];
+                    const dy = positions[i*3+1] - positions[j*3+1];
+                    const dz = positions[i*3+2] - positions[j*3+2];
+                    if(dx*dx + dy*dy + dz*dz < connectDistance * connectDistance) {
+                        linePositions.push(
+                            positions[i*3], positions[i*3+1], positions[i*3+2],
+                            positions[j*3], positions[j*3+1], positions[j*3+2]
+                        );
+                    }
+                }
+            }
+            particleSystem.geometry.attributes.position.needsUpdate = true;
+            linesMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            renderer.render(scene, camera);
+        }
+        animate();
+
+
+        // --- GSAP SCROLL ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Chapter 1 Reveal Animation
+        const tlLoad = gsap.timeline({ defaults: { ease: "power3.inOut" } });
+        tlLoad.to('.reveal-mask', { clipPath: 'inset(0 0% 0 0)', duration: 1.5, stagger: 0.2 }, 0);
+
+        // Section 3: Transition to Dark Mode
+        ScrollTrigger.create({
+            trigger: "#chapter-3",
+            start: "top 60%",
+            onEnter: () => {
+                document.body.classList.add('dark-mode');
+                gsap.to('#hero-video',{opacity:0,duration:0.4});
+                gsap.to('#bg-image',{opacity:0,duration:0.5});
+                gsap.to('#webgl-canvas',{opacity:0,duration:0.5});
+            },
+            onLeaveBack: () => {
+                document.body.classList.remove('dark-mode');
+                gsap.to('#hero-video',{opacity:0,duration:0.2});
+                gsap.to('#bg-image', { opacity: 1, duration: 0.5 });
+                gsap.to('#webgl-canvas', { opacity: 1, duration: 0.5 });
+            }
+        });
+
+        
+ScrollTrigger.create({
+ trigger:"#chapter-2",
+ start:"top 90%",
+ onEnter:()=>{
+   gsap.to("#hero-video",{opacity:0,duration:0.7});
+   gsap.to("#bg-image",{opacity:1,duration:0.7});
+ },
+ onLeaveBack:()=>{
+   gsap.to("#hero-video",{opacity:1,duration:0.7});
+   gsap.to("#bg-image",{opacity:0,duration:0.7});
+ }
+});
+gsap.set("#bg-image",{opacity:0});
+
+
+        // Timeline Progress Bar Logic
+        const processSteps = document.querySelectorAll('.process-step');
+        gsap.to("#timeline-progress", {
+            width: "100%",
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".timeline-container",
+                start: "top 75%",
+                end: "bottom 50%", 
+                scrub: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    processSteps.forEach((step, index) => {
+                        const stepThreshold = index / (processSteps.length - 1);
+                        if(progress >= stepThreshold - 0.05) {
+                            step.classList.add('active');
+                        } else {
+                            step.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+
+    </script>
+
+<script>
+function scrollToSection(name){
+ const map={
+  work:'#chapter-2',
+  about:'.about-section',
+  process:'.process-section',
+  contact:'.contact-section'
+ };
+ const el=document.querySelector(map[name]);
+ if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+</script>
+
+<script>
+window.addEventListener('load',()=>{
+  document.documentElement.style.overflowY='auto';
+  document.body.style.overflowY='auto';
+});
+</script>
+
+</body>
+</html>
