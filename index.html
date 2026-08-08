@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garima Jain | AI Content Creator & Visual Storyteller</title>
     <meta name="description" content="Beyond the Prompt. Turning imagination into visual stories. Portfolio of Garima Jain, AI Content Creator & Visual Storyteller based in Delhi.">
-    
+
+    <!-- Favicon (inline SVG, no extra file needed) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236D28D9'/%3E%3Cstop offset='100%25' stop-color='%23E11D8A'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Poppins, sans-serif' font-weight='800' font-size='28' fill='%23FCFCFA' text-anchor='middle'%3EGJ%3C/text%3E%3C/svg%3E">
+
+    <!-- IMPORTANT: replace https://YOUR-USERNAME.github.io/YOUR-REPO/ below with your actual live GitHub Pages URL
+         so link previews on LinkedIn/WhatsApp/Twitter show the right image and link. -->
+    <link rel="canonical" href="https://YOUR-USERNAME.github.io/YOUR-REPO/">
+
+    <!-- Open Graph (LinkedIn, WhatsApp, Facebook link previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Garima Jain | AI Content Creator & Visual Storyteller">
+    <meta property="og:description" content="Beyond the Prompt. Turning imagination into visual stories. AI content creator and visual storyteller based in Delhi.">
+    <meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/about-portrait.jpg">
+    <meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Garima Jain | AI Content Creator & Visual Storyteller">
+    <meta name="twitter:description" content="Beyond the Prompt. Turning imagination into visual stories.">
+    <meta name="twitter:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/about-portrait.jpg">
+
     <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,6 +129,124 @@ background:#000;
         main {
             position: relative;
             z-index: 3; /* FIXED: Sits on top of both backgrounds so text is visible */
+        }
+
+        /* --- STICKY NAV --- */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 5vw;
+            transform: translateY(-100%);
+            transition: transform 0.4s ease, background 0.4s ease, padding 0.3s ease, backdrop-filter 0.4s ease;
+        }
+
+        .site-nav.visible {
+            transform: translateY(0);
+        }
+
+        .site-nav.scrolled {
+            background: rgba(242, 230, 216, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.8rem 5vw;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
+        body.dark-mode .site-nav.scrolled {
+            background: rgba(10, 10, 10, 0.75);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .site-nav .nav-logo {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .site-nav .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        .site-nav .nav-links li a,
+        .site-nav .nav-links li {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        .site-nav .nav-links li:hover {
+            opacity: 1;
+            color: var(--magenta);
+        }
+
+        @media (max-width: 640px) {
+            .site-nav .nav-links { gap: 1.2rem; }
+            .site-nav .nav-links li { font-size: 0.72rem; }
+        }
+
+        /* --- BACK TO TOP --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--violet), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            box-shadow: 0 6px 20px rgba(225, 29, 138, 0.35);
+            cursor: pointer;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: var(--pearl);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (max-width: 640px) {
+            .back-to-top { bottom: 1.2rem; right: 1.2rem; width: 42px; height: 42px; }
+        }
+
+        /* Respect users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            #webgl-canvas { display: none; }
+            .creator-badge, .project-card, .about-portrait, .back-to-top, .site-nav {
+                transition: none !important;
+                animation: none !important;
+            }
         }
 
         section {
@@ -282,8 +420,9 @@ background:#000;
             height: 220px;
             min-height: 120px;
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-end;
             text-decoration: none;
             color: #1A1A24;
             font-weight: 800;
@@ -311,6 +450,27 @@ background:#000;
 
         .project-card:hover::before {
             opacity: 1;
+        }
+
+        /* Pinned to a fixed position so it lines up across cards regardless of
+           how many lines the title below it wraps to */
+        .project-icon {
+            position: absolute;
+            top: 2.5rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(225, 29, 138, 0.08);
+            flex-shrink: 0;
+        }
+
+        .project-title {
+            display: block;
+            margin-top: 0.9rem;
         }
 
         /* ABOUT ME SECTION */
@@ -345,6 +505,33 @@ background:#000;
             line-height: 1.6; 
             max-width: 500px; 
             opacity: 0.8; 
+        }
+
+        .skill-tags {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1.75rem;
+        }
+
+        .skill-tags li {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            padding: 7px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(0,0,0,0.15);
+            color: #232323;
+            opacity: 0.85;
+            transition: border-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .skill-tags li:hover {
+            border-color: var(--magenta);
+            opacity: 1;
+            transform: translateY(-2px);
         }
 
         .about-portrait-container {
@@ -496,6 +683,13 @@ background:#000;
             margin-bottom: 8rem;
         }
 
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            margin: -3rem 0 3rem;
+        }
+
         /* Contact Section */
         .contact-section {
             margin-top: auto;
@@ -606,6 +800,9 @@ background:#000;
             .about-text p {
                 margin: 0 auto;
             }
+            .skill-tags {
+                justify-content: center;
+            }
             .about-portrait-container {
                 justify-content: center;
             }
@@ -633,6 +830,13 @@ background:#000;
                 padding: 1.4rem 1.5rem;
                 font-size: 1rem;
             }
+            .project-icon {
+                position: static;
+                margin-bottom: 0.6rem;
+            }
+            .project-title {
+                margin-top: 0;
+            }
             .tabs-container { gap: 1.25rem; }
             .tab-btn { font-size: 1rem; padding-bottom: 10px; }
             section { padding: 0 6vw; }
@@ -658,6 +862,22 @@ html{scroll-behavior:smooth;}
 </style>
 </head>
 <body>
+
+    <!-- Sticky Nav -->
+    <nav class="site-nav" id="siteNav">
+        <div class="nav-logo" onclick="scrollToSection('top')">GARIMA JAIN</div>
+        <ul class="nav-links">
+            <li onclick="scrollToSection('work')">Work</li>
+            <li onclick="scrollToSection('about')">About</li>
+            <li onclick="scrollToSection('process')">Process</li>
+            <li onclick="scrollToSection('contact')">Contact</li>
+        </ul>
+    </nav>
+
+    <!-- Back to Top -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToSection('top')" role="button" aria-label="Back to top">
+        <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </div>
 
     <!-- Hero Video -->
     <video id="hero-video" autoplay muted playsinline webkit-playsinline="true" preload="auto" poster="assets/bg-image.jpg">
@@ -709,6 +929,13 @@ html{scroll-behavior:smooth;}
                     <h2>Hey, I'm Garima.</h2>
                     <h3>Let's turn ideas into things that you can see.</h3>
                     <p>An enthusiastic AI content creator and visual storyteller based in Delhi, my work sits at the intersection of storytelling, design, technology and curiosity.</p>
+                    <ul class="skill-tags">
+                        <li>Prompt Engineering</li>
+                        <li>Visual Storytelling</li>
+                        <li>Brand Content</li>
+                        <li>Educational Design</li>
+                        <li>Carousel & Social Design</li>
+                    </ul>
                 </div>
                 <div class="about-portrait-container">
                     <img src="assets/about-portrait.jpg" alt="Garima Jain Portrait" class="about-portrait" loading="lazy">
@@ -766,6 +993,8 @@ html{scroll-behavior:smooth;}
                     <li>STORYTELLING</li>
                 </ul>
             </div>
+
+            <div class="section-divider"></div>
 
             <div class="tools-section">
                 <h2 class="stage-title" style="font-size: 1.5rem; margin-bottom: -1rem;">What Tools I Use</h2>
@@ -852,12 +1081,26 @@ html{scroll-behavior:smooth;}
             { title: "CSEWhy Carousel 03", youtubeUrl: "https://www.instagram.com/p/DbAWcltj4eP/?igsh=MXFrcjNsa3R5cjBmcg%3D%3D" }
         ];
 
-        // Render Text-Based Project Cards
+        // Render Text-Based Project Cards with a small platform badge (YouTube / Instagram / X)
+        function getPlatformIcon(url) {
+            if (url.includes('youtube') || url.includes('youtu.be')) {
+                return '<svg viewBox="0 0 24 24" width="18" height="18" fill="#E11D8A"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.5V8.5L15.8 12l-6.2 3.5Z"/></svg>';
+            }
+            if (url.includes('instagram')) {
+                return '<svg viewBox="0 0 24 24" width="18" height="18" fill="#E11D8A"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.4.42.6.24 1 .53 1.5 1a4 4 0 0 1 1 1.5c.17.4.36 1.2.42 2.4.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.4-.24.6-.53 1-1 1.5a4 4 0 0 1-1.5 1c-.4.17-1.2.36-2.4.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.4-.42a4 4 0 0 1-1.5-1 4 4 0 0 1-1-1.5c-.17-.4-.36-1.2-.42-2.4C2.21 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.4a4 4 0 0 1 1-1.5 4 4 0 0 1 1.5-1c.4-.17 1.2-.36 2.4-.42C8.4 2.21 8.8 2.2 12 2.2Zm0 3.05a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5Zm0 11.13a4.38 4.38 0 1 1 0-8.75 4.38 4.38 0 0 1 0 8.75Zm7.03-11.4a1.58 1.58 0 1 1-3.15 0 1.58 1.58 0 0 1 3.15 0Z"/></svg>';
+            }
+            if (url.includes('x.com') || url.includes('twitter.com')) {
+                return '<svg viewBox="0 0 24 24" width="16" height="16" fill="#E11D8A"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-6.8L4.5 22H1.4l8.1-9.3L1 2h7.2l5 6.2L18.9 2Zm-1.2 18h1.7L6.4 4H4.6l13.1 16Z"/></svg>';
+            }
+            return '';
+        }
+
         function renderProjects(projectsArray, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML = projectsArray.map(proj => `
-                <a href="${proj.youtubeUrl}" target="_blank" class="project-card">
-                    ${proj.title}
+                <a href="${proj.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="project-card">
+                    <span class="project-icon">${getPlatformIcon(proj.youtubeUrl)}</span>
+                    <span class="project-title">${proj.title}</span>
                 </a>
             `).join('');
         }
@@ -899,7 +1142,8 @@ html{scroll-behavior:smooth;}
         // Particles setup (fewer particles on mobile/low-power devices so the WebGL layer
         // doesn't starve the hero video of CPU/GPU and cause stutter on phones)
         const isMobile = window.matchMedia('(max-width: 768px)').matches;
-        const particleCount = isMobile ? 45 : 150;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const particleCount = prefersReducedMotion ? 0 : (isMobile ? 45 : 150);
         const particlesGeometry = new THREE.BufferGeometry();
         const particlePositions = new Float32Array(particleCount * 3);
         const particleVelocities = [];
@@ -975,8 +1219,13 @@ html{scroll-behavior:smooth;}
         gsap.registerPlugin(ScrollTrigger);
 
         // Chapter 1 Reveal Animation
-        const tlLoad = gsap.timeline({ defaults: { ease: "power3.inOut" } });
-        tlLoad.to('.reveal-mask', { clipPath: 'inset(0 0% 0 0)', duration: 1.5, stagger: 0.2 }, 0);
+        const tlLoad = gsap.timeline({ defaults: { ease: prefersReducedMotion ? "none" : "power3.inOut" } });
+        tlLoad.to('.reveal-mask', { clipPath: 'inset(0 0% 0 0)', duration: prefersReducedMotion ? 0.01 : 1.5, stagger: prefersReducedMotion ? 0 : 0.2 }, 0);
+
+        if(prefersReducedMotion){
+            const heroVideo = document.getElementById('hero-video');
+            if(heroVideo){ heroVideo.pause(); }
+        }
 
         // Section 3: Transition to Dark Mode
         ScrollTrigger.create({
@@ -1040,6 +1289,10 @@ gsap.set("#bg-image",{opacity:0});
 
 <script>
 function scrollToSection(name){
+ if(name === 'top'){
+   window.scrollTo({top:0, behavior:'smooth'});
+   return;
+ }
  const map={
   work:'#chapter-2',
   about:'.about-section',
@@ -1049,6 +1302,31 @@ function scrollToSection(name){
  const el=document.querySelector(map[name]);
  if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}
 }
+
+// Show sticky nav + back-to-top after scrolling past the hero, and toggle a scrolled/blurred nav state
+(function(){
+  const nav = document.getElementById('siteNav');
+  const backToTop = document.getElementById('backToTop');
+  const heroHeight = () => window.innerHeight * 0.6;
+
+  function onScroll(){
+    const y = window.scrollY;
+    if(y > heroHeight()){
+      nav.classList.add('visible');
+      backToTop.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+      backToTop.classList.remove('visible');
+    }
+    if(y > 40){
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
 </script>
 
 <script>
